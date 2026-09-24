@@ -1,33 +1,79 @@
-Loading…
+задание 1
+решение
+grep -o '^[^:]*' /etc/passwd | sort  
 
-Welcome to JS/Linux (i586)
+задание 2
+решение
+grep -v '^#' /etc/protocols | awk '{print $2, $1}' | sort -rn | head -5
 
-Use 'vflogin username' to connect to your account.  
-You can create a new account at https://vfsync.org/signup.  
-Use 'export_file filename' to export a file to your computer.  
-Imported files are written to the home directory.
+задание 3
+решение
+#!/bin/bash
 
-localhost:~# grep -o '^[^:]*' /etc/passwd | sort  
-adm  
-at  
-bin  
-cron  
-cyrus  
-daemon  
-dhcp  
-ftp  
-games  
-guest  
-halt  
-lp  
-mail  
-man  
-news  
-nobody  
-ntp  
-operator  
-postmaster  
-root
+text="$1"
 
-  2
+length=${#text}
+line=$(printf '%*s' $((length + 2)) '' | tr ' ' '-')
 
+echo "+$line+"
+echo "| $text |"
+echo "+$line+"
+
+
+задание 4
+решение 
+#!/bin/end bash
+grep -oE '\b[A-Za-z_][A-Za-z0-9_]*\b' "$1" | sort -u
+
+задание 5
+решение
+#!/bin/bash
+chmod +x "$1"
+sudo cp "$1" /usr/local/bin/
+
+задание 6
+#!/bin/bash 
+for file in *.c *.js *.py; do
+[ -e "$file" ] || continue 
+first_line=$(head -n 1 "$file")
+case "$file" in
+*.c|*.js)
+if echo "$first_line" | grep -Eq '^[[:space:]]*(//|/\*)'; then 
+echo "$file: комментарий есть"
+else
+echo "$file: комментария нет"
+fi
+;;
+*.py)
+if echo "$first_line" | grep -Eq '^[[:space:]]*#'; then 
+echo "$file: комментарий есть" 
+else 
+echo "$file: комментария нет" 
+fi 
+;; 
+esac
+done
+задание 7
+
+#!/bin/bash
+
+if [ -z "$1" ]; then
+echo "Укажите путь"
+exit 1
+fi
+find "$1" -type f -exec sha256sum {} + | sort | uniq -w 64 -D
+
+задание 8
+
+#!/bin/bash
+
+find . -maxdepth 1 -type f -name "*.$1" -print0 | tar --null -cf archive.tar -T -
+задание 9
+
+#!/bin/bash
+find . -maxdepth 1 -type f -name "*.$1" -print0 | tar --null -cf archive.tar -T -
+
+задание 10
+#!/bin/bash
+
+find "$1" -maxdepth 1 -type f -empty -print
